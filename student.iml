@@ -121,5 +121,6 @@
     <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-juli:8.5.23" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:4.3.13.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.4" level="project" />
+    <orderEntry type="library" name="promise-polyfill-DefinitelyTyped" level="application" />
   </component>
 </module>

@@ -87,7 +87,7 @@
 			let user = this.getItem('user')
 			// 超管
 			if(user){
-                this.$http.post('/catalog', {}).then(res => {
+                this.$http.post('/catalog/all', {}).then(res => {
                     this.$menu(res.getData('list'))
                     this.mains = this.menu
                 }).catch(error => {

@@ -92,7 +92,7 @@
             let user = this.getItem('user')
 
             this.options = {
-                url: '/users',
+                url: '/user/list',
                 params: {
                     role: user.role === '2' ? '1': '',
                     index: 1,

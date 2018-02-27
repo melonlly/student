@@ -82,7 +82,7 @@
         created () {
             let user = this.getItem('user')
             this.options = {
-                url: '/score',
+                url: '/score/list',
                 params: {
                     name: user.role === '2' ? user.relation : '',
                     index: 1,

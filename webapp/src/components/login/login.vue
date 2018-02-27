@@ -37,6 +37,7 @@
 		methods: {
 			login () {
 				if(this.account && this.password){
+				    this.password = this.encrypt(this.password)
 					this.$http.post('/login', {
 					    account: this.account,
 						password: this.password

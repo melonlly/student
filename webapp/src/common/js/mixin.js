@@ -13,10 +13,10 @@ const Axios = axios.create({
     withCredentials: false, // 跨域请求时是否需要使用凭证
     // `auth` 表示应该使用 HTTP 基础验证，并提供凭据
     // 这将设置一个 `Authorization` 头，覆写掉现有的任意使用 `headers` 设置的自定义 `Authorization`头
-    auth: {
-        username: 'admin',
-        password: 'admin'
-    },
+    // auth: {
+    //     username: 'admin',
+    //     password: 'admin'
+    // },
     timeout: 20000,
     responseType: 'json', // 服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
     // 允许为上传处理进度事件

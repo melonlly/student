@@ -101,7 +101,7 @@
         created () {
             let user = this.getItem('user')
             this.options = {
-                url: '/daily',
+                url: '/daily/list',
                 params: {
                     name: user.role === '2' ? user.relation : '',
                     index: 1,

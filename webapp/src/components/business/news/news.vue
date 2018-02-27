@@ -67,7 +67,7 @@
         },
         created () {
             this.options = {
-                url: '/news',
+                url: '/news/list',
                 params: {
                     index: 1,
                     size: 10

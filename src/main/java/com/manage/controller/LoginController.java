@@ -21,10 +21,10 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	@ResponseBody
-	public Result login(String name, String password) {
+	public Result login(String account, String password) {
 		Result result = new Result();
 		try	{
-			User user = userService.Login(name, password);
+			User user = userService.Login(account, password);
 			if(user != null){
 				List<User> list = new ArrayList<User>();
 				list.add(user);
