@@ -1,0 +1,65 @@
+$li-h = 48px
+
+.nvg
+    ul
+        display: flex
+        position: relative
+        flex-direction: column
+        justify-content: center
+        width: 100%
+        .cursor
+            position: absolute
+            z-index: 101
+            top: 0
+            left: 0
+            border-left: 2px solid $color
+            content: ''
+            transition: margin-top .3s $cubic-bezier
+        li
+            position: relative
+            z-index: 100
+            width: 100%
+            cursor: pointer
+            background-color: $sub-color
+            transition: background-color .3s $cubic-bezier
+            .item
+                z-index: 51
+                width: 100%
+                height: $li-h
+                &.hover
+                    $hover()
+                .text
+                    position: absolute
+                    left: 20%
+                    display: block
+                    width: 60%
+                    height: $li-h
+                    line-height: $li-h
+                    color: $color
+                .drop
+                    position: absolute
+                    right: 0
+                    top: 0
+                    width: 20%
+                    height: 100%
+                    background: url(/src/static/images/expand.png) no-repeat center
+                    transition: transform .3s $cubic-bezier
+                    &.open
+                        transform: rotate(180deg)
+            .sub
+                width: 100%
+                height: 0
+                overflow: hidden
+                transition: height .3s $cubic-bezier
+                span
+                    height: $li-h
+                    line-height: $li-h
+                    background-color: $sub-color
+                    &.focus
+                        $hover()
+                        a
+                            $focus()
+                    &:hover
+                        $hover()
+                    a
+                        color: $color

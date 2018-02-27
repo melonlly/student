@@ -1,0 +1,51 @@
+$header-h = 64px /* header高度 */
+$header-shadow = 5px /* header阴影高度 */
+
+#index
+    position: relative
+    width: 100%
+    .header
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        z-index: 888
+        width: 100%
+        height: $header-h
+        line-height: $header-h
+        background-color: $color
+        $shadow()
+        .logo
+            display: inline-block
+            width: 10%
+            height: 100%
+        .user
+            display: inline-block
+            float: right
+            width: 20%
+            height: 100%
+
+    .left
+        display: inline-block
+        margin-top: $header-h
+        z-index: 777
+        padding-top: $header-shadow
+        width: 15%
+        color: $color
+        background-color: $sub-color
+        overflow-x: hidden
+        overflow-y: auto
+
+    .main
+        display: inline-block
+        float: right
+        margin-top: $header-h
+        padding-top: $header-shadow
+        width: 85%
+
+    .footer
+        position: fixed
+        bottom: 0
+        margin-left: 20%
+        width: 75%
+        height: 8%

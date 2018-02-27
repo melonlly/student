@@ -1,0 +1,126 @@
+.list
+    padding: 0 10px
+    background: $sub-color
+    .table_box
+        height: 90%
+        table
+            tr
+                display: table-row
+                vertical-align: inherit
+                border-color: inherit
+                th
+                    text-align: center
+                    padding: 15px 0
+                    $hover()
+                    font-size: 16px
+                    color: #040404
+                    font-weight: normal
+                td
+                    padding: 15px 15px
+                    text-align: center
+                    vertical-align: middle
+                    border-bottom: 1px solid #ededee
+                    font-size: 14px
+                    color: #040404
+                    .icon_edit
+                        display: inline-block
+                        margin: 0 10px
+                        width: 30px
+                        height: 30px
+                        background: url(edit.png) no-repeat center;
+                        cursor: pointer
+                    .icon_remove
+                        display: inline-block
+                        margin: 0 10px
+                        width: 30px
+                        height: 30px
+                        background: url(remove.png) no-repeat center;
+                        cursor: pointer
+    .no_data
+        text-align: center
+        margin: 100px 0
+    .pages
+        position: relative
+        bottom: 0
+        left: 0
+        margin-top: 10px
+        padding: 0 10px
+        .num
+            float: left
+            height: 38px
+            line-height: 38px
+            span
+                float: left
+                font-size: 16px
+                color: #040404
+            .drop
+                float: left
+                margin-left: 20px
+        .stat
+            float: right
+            height: 38px
+            line-height: 38px
+            span
+                float: left
+                font-size: 16px
+                color: #040404
+                line-height: 36px
+                &.indexs
+                    margin-right: 20px
+                    span
+                        margin: 0 10px
+                .pre
+                    float: left
+                    width: 36px
+                    height: 36px
+                    background: url(icon_pre.png) no-repeat center
+                    cursor: pointer
+                em
+                    float: left
+                    margin-left: 5px
+                    padding: 0 20px
+                    font-size: 16px
+                    color: #040404
+                    line-height: 36px
+                    border: 1px solid #ffffff
+                    font-style: normal
+                    border-radius: 20px
+                    cursor: pointer
+                    &.active
+                        border: 1px solid #57aef4
+                        color: #57aef4
+                    &:hover
+                        background: #f6f6f7
+                .next
+                    float: left
+                    width: 36px
+                    height: 36px
+                    background: url(icon_next.png) no-repeat center
+                    cursor: pointer
+            .text
+                float: left
+                margin: 0 10px
+                text-align: center
+                width: 60px
+                height: 36px
+                line-height: 36px
+                border: 1px solid #e5e5e5
+                border-radius: 20px
+                -moz-appearance: textfield  /* Firefox */
+                &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+                    -webkit-appearance: none!important  /* chrome */
+            .enter
+                float: left
+                margin-left: 20px
+                width: 60px
+                height: 36px
+                line-height: 36px
+                border: 1px solid #e5e5e5
+                border-radius: 20px
+                text-align: center
+                font-size: 16px
+                color: #040404
+                cursor: pointer
+                &:hover
+                    border: 1px solid #57aef4
+                    color: #57aef4

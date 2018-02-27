@@ -1,0 +1,30 @@
+server:
+  port: 7777
+  session:
+    timeout: 1000000
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  datasource:
+#    url: jdbc:mysql://rm-wz9uu3v85a08u1nd8do.mysql.rds.aliyuncs.com:3306/manage
+#    username: root
+#    password: Admin123456
+    url: jdbc:mysql://localhost:3306/student
+    username: root
+    password: 111111
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    #设置数据库类型
+    database: MYSQL
+    #是否显示SQL语句
+    show-sql: true
+    hibernate:
+      #自动更新
+      ddl-auto: update
+      #实体映射命名
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    #配置方言
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect

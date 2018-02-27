@@ -1,0 +1,44 @@
+.dock
+    position: relative
+    height: 100%
+    transform-origin: 50% 0
+    transform: margin-top
+    transition: margin-top .5s $cubic-bezier
+    .up
+        position: absolute
+        top: -20px
+        margin-left: 48%
+        width: 4%
+        height: 20px
+        cursor: pointer
+        color: rgba(192, 192, 192, .5)
+    &::before
+        content: ''
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        z-index: -1
+        transform: scaleY(.85) perspective(100px) rotateX(5deg)
+        transform-origin: bottom
+        border-radius: 10px
+        background-color: $color
+    ul
+        display: flex
+        justify-content: center
+        height: 100%
+        li
+            margin: 0 2%
+            color: $sub-color
+            cursor: pointer
+            $blur()
+            &.active
+                $active()
+
+.tip-enter-active, .tip-leave-active
+    transition: color .5s $cubic-bezier
+    color: rgba(192, 192, 192, 0)
+
+.tip-enter, .tip-leave-active
+    color: rgba(192, 192, 192, .5)
