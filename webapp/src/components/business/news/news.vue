@@ -69,7 +69,7 @@
             this.options = {
                 url: '/news/list',
                 params: {
-                    index: 1,
+                    page: 1,
                     size: 10
                 },
                 isPage: true,
@@ -99,11 +99,11 @@
                 {name: 'publisher', text: '发 布 者'},
                 {name: 'updater', text: '更 新 者'},
                 {
-                    name: 'startDate',
+                    name: 'start',
                     text: '开始日期',
                     component: 'datepicker'
                 },{
-                    name: 'endDate',
+                    name: 'end',
                     text: '结束日期',
                     component: 'datepicker'
                 }

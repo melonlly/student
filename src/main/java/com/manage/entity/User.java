@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id; //id主键
 	private String name; //用户名
 	private String password; //用户密码
@@ -90,5 +90,20 @@ public class User {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", password='" + password + '\'' +
+				", create_time='" + create_time + '\'' +
+				", is_admin=" + is_admin +
+				", status=" + status +
+				", role=" + role +
+				", relation='" + relation + '\'' +
+				", phone='" + phone + '\'' +
+				'}';
 	}
 }

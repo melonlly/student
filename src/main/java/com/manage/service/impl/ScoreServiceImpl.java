@@ -32,7 +32,7 @@ public class ScoreServiceImpl implements ScoreService {
 			@Override
 			public Predicate toPredicate(Root<Score> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
 				if(score != null){
-					if(score.getName() != null){
+					if(score.getName() != null && score.getName() != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("name").as(String.class), score.getName())));
 					}
 					if(score.getExam() != null){

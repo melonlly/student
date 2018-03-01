@@ -2,23 +2,23 @@
 
 	<div id="login" :style="{ height: $height() + 'px' }">
 		<div class="login-box">
-			<div class="title">
-				Manage
-			</div>
+			<!--<div class="title">-->
+				<!--学生管理系统-->
+			<!--</div>-->
 			<div class="user">
 				<div class="account">
-					<i>iiiiii</i>
+					<i></i>
 					<input v-model="account" type="text">
 					<span v-show="!account">!!!</span>
 				</div>
 				<div class="password">
-					<i>iiiiii</i>
+					<i></i>
 					<input v-model="password" type="password">
 					<span v-show="!password">!!!</span>
 				</div>
 			</div>
 			<div class="login-in" @keyup.enter="login" @click="login">
-				Login in
+				登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
 			</div>
 		</div>
 	</div>
@@ -37,10 +37,10 @@
 		methods: {
 			login () {
 				if(this.account && this.password){
-				    this.password = this.encrypt(this.password)
 					this.$http.post('/login', {
 					    account: this.account,
 						password: this.password
+//						password: this.encrypt(this.password)
 					}).then(res => {
 					    this.setItem('user', res.getData())
 						this.$router.push({

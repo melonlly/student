@@ -104,7 +104,7 @@
                 url: '/daily/list',
                 params: {
                     name: user.role === '2' ? user.relation : '',
-                    index: 1,
+                    page: 1,
                     size: 10
                 },
                 isPage: true,
@@ -191,11 +191,11 @@
                     default: '0',
                     readonly: true
                 },{
-                    name: 'startDate',
+                    name: 'start',
                     text: '开始日期',
                     component: 'datepicker'
                 },{
-                    name: 'endDate',
+                    name: 'end',
                     text: '结束日期',
                     component: 'datepicker'
                 }

@@ -2,17 +2,14 @@ package com.manage.entity;
 
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "t_catalog")
 public class Catalog {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer parentid; // 父级栏目id
 	private String name; // 栏目名

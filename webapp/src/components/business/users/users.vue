@@ -16,7 +16,9 @@
         name: 'users',
         data () {
             return {
-                pop: false
+                pop: false,
+                params: {},
+				curId: '' // 当前编辑用户id
 			}
         },
         methods: {
@@ -33,6 +35,9 @@
             },
             // list查询
             search (params) {
+                params.page = 1
+				params.size = this.$refs.list.size
+                this.params = params
                 this.$refs.list.params = params
                 this.$refs.list.load()
             },
@@ -45,6 +50,7 @@
                         {name: 'name', text: '名 称', require: true},
                         {name: 'password', text: '密 码', require: true},
                         {name: 'relation', text: '关系人'},
+                        {name: 'phone', text: '手机号'},
                         {
                             name: 'is_admin',
                             text: '管理员',
@@ -80,12 +86,102 @@
             add (params) {
                 bus.$emit('pop', false)
 				params.password = this.encrypt(params.password)
+				const _this = this
+                this.$http.post('/user/add', params).then(res => {
+                    alert('添加成功！');
+                }).always((res, error) => {
+                    if(error){
+                        alert('添加失败！');
+                        console.log(error)
+					}else{
+                        _this.$refs.list.params = _this.params
+                        _this.$refs.list.load()
+					}
+				})
             },
-            edit (params) {
-
+			// 修改弹窗
+            editPop (params) {
+                this.curId = params.id
+                console.log(params)
+                bus.$emit('pop', true, {
+                    type: 'VForm',
+                    required: true,
+                    feilds: [
+                        {name: 'name', text: '名 称', default: params.name, require: true},
+                        {name: 'password', text: '密 码', require: true},
+                        {name: 'relation', text: '关系人', default: params.relation},
+                        {name: 'phone', text: '手机号', default: params.phone},
+                        {
+                            name: 'is_admin',
+                            text: '管理员',
+                            component: 'drop',
+                            entries: this.ENUM.isOrNot,
+                            default: params.is_admin,
+                            readonly: true
+                        },
+                        {
+                            name: 'status',
+                            text: '是否有效',
+                            component: 'drop',
+                            entries: this.ENUM.isOrNot,
+                            default: params.status,
+                            readonly: true
+                        },
+                        {
+                            name: 'role',
+                            text: '角色',
+                            component: 'drop',
+                            entries: this.ENUM.role,
+                            default: params.role,
+                            readonly: true
+                        }
+                    ],
+                    operates: [
+                        {
+                            name: '修改',
+                            type: 'update',
+                            func: 'edit'
+                        }
+                    ]
+                }, 'component')
             },
+			edit (params) {
+                bus.$emit('pop', false)
+                params.password = this.encrypt(params.password)
+				params.id = this.curId
+                const _this = this
+                this.$http.post('/user/update', params).then(res => {
+                    alert('修改成功！');
+                }).always((res, error) => {
+                    if(error){
+                        alert('修改失败！');
+                        console.log(error)
+                    }else{
+                        _this.$refs.list.params = _this.params
+                        _this.$refs.list.load()
+                    }
+                })
+			},
             remove (params) {
-
+                const _this = this
+                bus.$emit('pop', true, {
+                    text: '是否确认删除？',
+					okFunc () {
+                        _this.$http.post('/user/remove', {
+                            id: params.id
+                        }).then(res => {
+                            alert('删除成功！');
+                        }).always((res, error) => {
+                            if(error){
+                                alert('删除失败！');
+                                console.log(error)
+                            }else{
+                                _this.$refs.list.params = _this.params
+                                _this.$refs.list.load()
+                            }
+                        })
+					}
+                }, 'confirm')
             }
         },
         created () {
@@ -95,7 +191,7 @@
                 url: '/user/list',
                 params: {
                     role: user.role === '2' ? '1': '',
-                    index: 1,
+                    page: 1,
                     size: 10
                 },
                 isPage: true,
@@ -115,9 +211,11 @@
 				{
                     name: '$operate',
                     text: '操作',
-                    operate: ['remove', 'edit']
+                    operate: ['remove', 'editPop']
                 }
             ]
+
+			this.params = this.options.params
 
             this.required = false
             this.def = this.options.params
@@ -129,6 +227,7 @@
                     text: '管理员',
                     component: 'drop',
                     entries: this.ENUM.isOrNot,
+					default: '',
                     readonly: true
                 },
                 {
@@ -136,6 +235,7 @@
                     text: '是否有效',
                     component: 'drop',
                     entries: this.ENUM.isOrNot,
+                    default: '',
                     readonly: true
                 },
                 {

@@ -2,17 +2,14 @@ package com.manage.entity;
 
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "t_news")
 public class News {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name; // 消息名称
 	private String create_time; // 创建时间（yyyy-MM-dd hh:mm:ss）
@@ -87,5 +84,18 @@ public class News {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	@Override
+	public String toString() {
+		return "News{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", create_time='" + create_time + '\'' +
+				", update_time='" + update_time + '\'' +
+				", publisher='" + publisher + '\'' +
+				", updater='" + updater + '\'' +
+				", content='" + content + '\'' +
+				'}';
 	}
 }

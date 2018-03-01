@@ -2,17 +2,14 @@ package com.manage.entity;
 
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "t_daily")
 public class Daily {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name; // 学生姓名
 	private Integer lesson; // 上课（1,2,3）
@@ -97,5 +94,19 @@ public class Daily {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "Daily{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", lesson=" + lesson +
+				", phone=" + phone +
+				", homework=" + homework +
+				", daily=" + daily +
+				", clean=" + clean +
+				", date='" + date + '\'' +
+				'}';
 	}
 }

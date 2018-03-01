@@ -1,6 +1,6 @@
 <template>
 
-	<div class="pop">
+	<div class="pop" @click="close($event)">
 		<template v-if="content && popType">
 			<div class="content" v-if="popType === 'component'">
 				<!--<div class="title"></div>-->
@@ -16,8 +16,8 @@
 					{{content.text}}
 				</div>
 				<div class="btn">
-					<span class="ok">确认</span>
-					<span class="no">取消</span>
+					<span class="ok" @click="ok">确认</span>
+					<span class="no" @click="no">取消</span>
 				</div>
 			</div>
 			<div class="alter" v-else-if="popType === 'alter'">
@@ -32,6 +32,7 @@
 
 <script type="text/ecmascript-6">
     import VForm from 'components/VForm/VForm'
+    import bus from 'components/bus/bus'
 
     export default {
         props: ['content', 'popType'],
@@ -42,6 +43,26 @@
         methods: {
 			add (params) {
                 this.$parent.add(params)
+            },
+            edit (params) {
+                this.$parent.edit(params)
+            },
+			close (e) {
+			    if(e.target.getAttribute('class') === 'pop'){
+                    bus.$emit('pop', false)
+                }
+			},
+			ok () {
+                bus.$emit('pop', false)
+				if(this.content.okFunc){
+                    this.content.okFunc()
+				}
+			},
+			no () {
+                bus.$emit('pop', false)
+                if(this.content.noFunc){
+                    this.content.noFunc()
+                }
 			}
         },
         created () {

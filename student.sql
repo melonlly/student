@@ -7,6 +7,9 @@ CREATE TABLE `student`.`t_catalog` (
   `url` VARCHAR(45) NULL COMMENT '对应模块名',
   PRIMARY KEY (`id`))
   COMMENT = '栏目表';
+ALTER TABLE `student`.`t_catalog` 
+CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'id' ;
+
 
 CREATE TABLE `student`.`t_user` (
   `id` INT NOT NULL COMMENT 'id',
@@ -20,8 +23,12 @@ CREATE TABLE `student`.`t_user` (
   `phone` VARCHAR(45) NULL COMMENT '手机号',
   PRIMARY KEY (`id`))
   COMMENT = '用户表';
-INSERT INTO `student`.`t_user` (`id`, `name`, `password`, `create_time`, `is_admin`, `status`, `role`, `phone`) VALUES ('1', '老师', '111111', '2018-02-27 11:12:00', '1', '1', '1', '18772504022');
-INSERT INTO `student`.`t_user` (`id`, `name`, `password`, `create_time`, `is_admin`, `status`, `role`, `relation`, `phone`) VALUES ('2', '家长', '111111', '2018-02-27 11:12:00', '0', '1', '2', '西瓜', '18872697123');
+
+ALTER TABLE `student`.`t_user` 
+CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'id' ;
+
+INSERT INTO `student`.`t_user` (`name`, `password`, `create_time`, `is_admin`, `status`, `role`, `phone`) VALUES ('admin', 'U2FsdGVkX1+1FtBLO/LuYYgMH8LMU+uJicXIVfGNo3g=', '2018-03-01 11:11:11', '1', '1', '1', '18872697123');
+
 
 CREATE TABLE `student`.`t_news` (
   `id` INT NOT NULL COMMENT 'id',
@@ -33,6 +40,9 @@ CREATE TABLE `student`.`t_news` (
   `content` VARCHAR(1000) NULL COMMENT '内容',
   PRIMARY KEY (`id`))
   COMMENT = '消息表';
+ALTER TABLE `student`.`t_news` 
+CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'id' ;
+
 
 CREATE TABLE `student`.`t_daily` (
   `id` INT NOT NULL,
@@ -45,6 +55,9 @@ CREATE TABLE `student`.`t_daily` (
   `date` VARCHAR(45) NULL COMMENT '日期（yyyy-MM-dd）',
   PRIMARY KEY (`id`))
   COMMENT = '日常行为表';
+ALTER TABLE `student`.`t_daily` 
+CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT ;
+
 
 CREATE TABLE `student`.`t_score` (
   `id` INT NOT NULL,
@@ -61,6 +74,9 @@ CREATE TABLE `student`.`t_score` (
   `physical` VARCHAR(45) NULL COMMENT '物理',
   PRIMARY KEY (`id`))
   COMMENT = '考试分数表';
+ALTER TABLE `student`.`t_score` 
+CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT ;
+
 INSERT INTO `student`.`t_catalog` (`id`, `name`) VALUES ('1', '消息管理');
 INSERT INTO `student`.`t_catalog` (`id`, `name`) VALUES ('2', '学生管理');
 INSERT INTO `student`.`t_catalog` (`id`, `name`) VALUES ('3', '权限管理');

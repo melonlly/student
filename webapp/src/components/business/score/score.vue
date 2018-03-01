@@ -85,7 +85,7 @@
                 url: '/score/list',
                 params: {
                     name: user.role === '2' ? user.relation : '',
-                    index: 1,
+                    page: 1,
                     size: 10
                 },
                 isPage: true,

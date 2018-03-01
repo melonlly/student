@@ -12,7 +12,7 @@ public class Result {
 	private List data;
 	private Integer total;
 	private Integer pages;
-	private Integer index;
+	private Integer page;
 	private Integer size;
 
 	public Result() {}
@@ -57,12 +57,12 @@ public class Result {
 		this.pages = pages;
 	}
 
-	public Integer getIndex() {
-		return index;
+	public Integer getPage() {
+		return page;
 	}
 
-	public void setIndex(Integer index) {
-		this.index = index;
+	public void setPage(Integer page) {
+		this.page = page;
 	}
 
 	public Integer getSize() {

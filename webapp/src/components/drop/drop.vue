@@ -37,7 +37,7 @@
             select (item) {
                 this.current = {
                     text: item.text,
-                    value: item.value || item.text
+                    value: item.value
 				}
 				this.show = false
 				this.$emit('setValue', {
@@ -47,7 +47,7 @@
 			},
 			// 重置（置为空或置为默认值）
 			reset () {
-				let item = this.entries.find(item => item.value === this.default)
+				let item = this.entries.find(item => item.value === this.default + '')
                 this.current = {
                     text: item ? item.text : this.default || '',
                     value: this.value || this.default || ''

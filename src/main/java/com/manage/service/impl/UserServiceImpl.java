@@ -29,10 +29,10 @@ public class UserServiceImpl implements UserService {
 			@Override
 			public Predicate toPredicate(Root<User> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
 				if(user != null){
-					if(user.getName() != null){
+					if(user.getName() != null && user.getName() != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("name").as(String.class), user.getName())));
 					}
-					if(user.getRelation() != null){
+					if(user.getRelation() != null && user.getRelation() != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("relation").as(String.class), user.getRelation())));
 					}
 					if(user.getIs_admin() != null){

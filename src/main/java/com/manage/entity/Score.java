@@ -2,17 +2,14 @@ package com.manage.entity;
 
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "t_score")
 public class Score {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name; // 学生姓名
 	private Integer exam; // 考试类型（1,2,3）
@@ -137,5 +134,23 @@ public class Score {
 
 	public void setPhysical(String physical) {
 		this.physical = physical;
+	}
+
+	@Override
+	public String toString() {
+		return "Score{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", exam=" + exam +
+				", week1='" + week1 + '\'' +
+				", week2='" + week2 + '\'' +
+				", week3='" + week3 + '\'' +
+				", english='" + english + '\'' +
+				", social='" + social + '\'' +
+				", science='" + science + '\'' +
+				", chinese='" + chinese + '\'' +
+				", math='" + math + '\'' +
+				", physical='" + physical + '\'' +
+				'}';
 	}
 }

@@ -29,19 +29,19 @@ public class NewsServiceImpl implements NewsService {
 			@Override
 			public Predicate toPredicate(Root<News> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
 				if(news != null){
-					if(news.getName() != null){
+					if(news.getName() != null && news.getName() != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("name").as(String.class), news.getName())));
 					}
-					if(news.getPublisher() != null){
+					if(news.getPublisher() != null && news.getPublisher() != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("publisher").as(String.class), news.getPublisher())));
 					}
-					if(news.getUpdater() != null){
+					if(news.getUpdater() != null && news.getUpdater() != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("updater").as(String.class), news.getUpdater())));
 					}
-					if(start != null){
+					if(start != null && start != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.greaterThanOrEqualTo(root.get("create_time").as(String.class), start)));
 					}
-					if(end != null){
+					if(end != null && end != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("create_time").as(String.class), end)));
 					}
 				}

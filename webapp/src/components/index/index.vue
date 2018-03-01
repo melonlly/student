@@ -107,7 +107,7 @@
 			    this.pop = show
 				this.content = content
 				this.popType = type
-				if(content){
+				if(content && type === 'component'){
                     this.content.operates.forEach(op => {
                         _this[op.func] = params => {
                             _this.$refs.cpt[op.func](params)

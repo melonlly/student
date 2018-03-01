@@ -29,7 +29,7 @@ public class DailyServiceImpl implements DailyService {
 			@Override
 			public Predicate toPredicate(Root<Daily> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
 				if(daily != null){
-					if(daily.getName() != null){
+					if(daily.getName() != null && daily.getName() != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("name").as(String.class), daily.getName())));
 					}
 					if(daily.getLesson() != null){
@@ -44,10 +44,10 @@ public class DailyServiceImpl implements DailyService {
 					if(daily.getDaily() != null){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("daily").as(Integer.class), daily.getDaily())));
 					}
-					if(start != null){
+					if(start != null && start != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.greaterThanOrEqualTo(root.get("create_time").as(String.class), start)));
 					}
-					if(end != null){
+					if(end != null && end != ""){
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("create_time").as(String.class), end)));
 					}
 				}

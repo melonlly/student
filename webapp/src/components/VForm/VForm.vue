@@ -93,7 +93,6 @@
                     return false
                 }
 				if(operate.type && operate.type !== 'reset'){
-                    console.log(_this.$parent, operate.func)
                     _this.$parent[operate.func](_this.params)
 //                    _this.$emit(operate.func, _this.params) // 调用按钮对应的事件
 				}else{

@@ -9,10 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/daily")
@@ -25,16 +29,42 @@ public class DailyController {
 
 	@RequestMapping("/list")
 	@ResponseBody
-	public Result findDailys(Integer page, Integer size, String start, String end, Daily daily) {
+	public Result findDailys(@RequestBody Map<String, Object> req) {
+		int page = Integer.parseInt(req.get("page").toString());
+		int size = Integer.parseInt(req.get("size").toString());
+		String start = req.get("start").toString();
+		String end = req.get("end").toString();
+		String lesson = req.get("lesson").toString();
+		String phone = req.get("phone").toString();
+		String homework = req.get("homework").toString();
+		String dailys = req.get("daily").toString();
+		Daily daily = new Daily();
+		daily.setName(req.get("name").toString());
+		if(lesson != null && lesson != ""){
+			daily.setLesson(Integer.parseInt(lesson));
+		}
+		if(phone != null && phone != ""){
+			daily.setPhone(Integer.parseInt(phone));
+		}
+		if(homework != null && homework != ""){
+			daily.setHomework(Integer.parseInt(homework));
+		}
+		if(dailys != null && dailys != ""){
+			daily.setDaily(Integer.parseInt(dailys));
+		}
+
+		System.out.println(page + " " + size + " " + start + " " + end);
+		System.out.println(daily.toString());
+
 		Result result = new Result();
 		try {
 			// 分页默认从0页开始
 			Page<Daily> dailies = dailyService.findDailys(page - 1, size, start, end, daily);
 			result.setCode(Constants.SUCCESS);
 			result.setData(dailies.getContent());
-			result.setTotal(dailies.getSize());
+			result.setTotal((int)dailies.getTotalElements());
 			result.setPages(dailies.getTotalPages());
-			result.setIndex(page);
+			result.setPage(page);
 			result.setSize(size);
 		} catch (Exception e) {
 			result.setCode(Constants.FAIL);
@@ -46,8 +76,16 @@ public class DailyController {
 	@Modifying
 	@RequestMapping("/add")
 	@ResponseBody
-	public Result saveDaily(Daily daily) {
+	public Result saveDaily(@RequestBody Map<String, Object> req) {
 		Result result = new Result();
+		Daily daily = new Daily();
+		daily.setName(req.get("name").toString());
+		daily.setLesson(Integer.parseInt(req.get("lesson").toString()));
+		daily.setPhone(Integer.parseInt(req.get("phone").toString()));
+		daily.setHomework(Integer.parseInt(req.get("homework").toString()));
+		daily.setDaily(Integer.parseInt(req.get("daily").toString()));
+		daily.setClean(Integer.parseInt(req.get("clean").toString()));
+		daily.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		try {
 			dailyRepository.save(daily);
 			result.setCode(Constants.SUCCESS);
@@ -63,7 +101,7 @@ public class DailyController {
 	@ResponseBody
 	public Result updateDaily(Daily daily) {
 		Result result = new Result();
-		Daily dailyEntity = dailyRepository.findOne(Long.getLong(daily.getId() + ""));
+		Daily dailyEntity = dailyRepository.findOne((long)daily.getId());
 		if (dailyEntity != null) {
 			try {
 				dailyRepository.save(daily);
@@ -82,7 +120,7 @@ public class DailyController {
 	public Result removeDaily(Integer id) {
 		Result result = new Result();
 		try {
-			dailyRepository.delete(Long.getLong(id + ""));
+			dailyRepository.delete((long)id);
 			result.setCode(Constants.SUCCESS);
 		} catch (Exception e) {
 			result.setCode(Constants.FAIL);
