@@ -15,7 +15,11 @@
     export default {
         name: 'news',
         data () {
-            return {}
+            return {
+                username: '',
+                params: {},
+                curId: '' // 当前编辑用户id
+			}
         },
         methods: {
             before () {},
@@ -31,6 +35,9 @@
             },
             // list查询
             search (params) {
+                params.page = 1
+                params.size = this.$refs.list.size
+                this.params = params
                 this.$refs.list.params = params
                 this.$refs.list.load()
             },
@@ -40,10 +47,8 @@
                     type: 'VForm',
                     required: true,
                     feilds: [
-                        {name: 'name', text: '名 称', require: true},
-                        {name: 'publisher', text: '发 布 者', require: true},
-                        {name: 'updater', text: '更 新 者'},
-                        {name: 'content', text: '内容', require: true, tag: 'textarea'}
+                        {name: 'name', text: '名 称', require: true, br: true},
+                        {name: 'content', text: '内 容', require: true, tag: 'textarea', br: true}
                     ],
                     operates: [
                         {
@@ -57,15 +62,104 @@
 			// 添加
 			add (params) {
 				bus.$emit('pop', false)
+                const _this = this
+				params.publisher = _this.username
+                this.$http.post('/news/add', params).then(res => {
+                    alert('添加成功！');
+                }).always((res, error) => {
+                    if(error){
+                        alert('添加失败！');
+                        console.log(error)
+                    }else{
+                        _this.$refs.list.params = _this.params
+                        _this.$refs.list.load()
+                    }
+                })
 			},
+            // 修改弹窗
+            editPop (params) {
+                this.curId = params.id
+                console.log(params)
+                bus.$emit('pop', true, {
+                    type: 'VForm',
+                    required: true,
+                    feilds: [
+                        {
+                            name: 'name',
+							text: '名 称',
+							value: params.name,
+							require: true,
+							br: true
+						},
+                        {
+                            name: 'content',
+							text: '内 容',
+                            value: params.content,
+							require: true,
+							tag: 'textarea',
+							br: true
+                        }
+                    ],
+                    operates: [
+                        {
+                            name: '修改',
+                            type: 'update',
+                            func: 'edit'
+                        }
+                    ]
+                }, 'component')
+            },
 			edit (params) {
-
+                bus.$emit('pop', false)
+                params.id = this.curId
+                const _this = this
+				params.updater = _this.username
+                this.$http.post('/news/update', params).then(res => {
+                    alert('修改成功！');
+                }).always((res, error) => {
+                    if(error){
+                        alert('修改失败！');
+                        console.log(error)
+                    }else{
+                        _this.$refs.list.params = _this.params
+                        _this.$refs.list.load()
+                    }
+                })
 			},
 			remove (params) {
-
+                const _this = this
+                bus.$emit('pop', true, {
+                    text: '是否确认删除？',
+                    okFunc () {
+                        _this.$http.post('/news/remove', {
+                            id: params.id
+                        }).then(res => {
+                            alert('删除成功！');
+                        }).always((res, error) => {
+                            if(error){
+                                alert('删除失败！');
+                                console.log(error)
+                            }else{
+                                _this.$refs.list.params = _this.params
+                                _this.$refs.list.load()
+                            }
+                        })
+                    }
+                }, 'confirm')
+			},
+            detail (params) {
+                bus.$emit('pop', true, {
+                    title: params.name,
+					date: params.create_time,
+                    text: params.content,
+					width: '800px',
+					height: '500px'
+                }, 'alter')
 			}
         },
         created () {
+            this.username = this.getItem('user').name
+
             this.options = {
                 url: '/news/list',
                 params: {
@@ -88,9 +182,11 @@
                 {
                     name: '$operate',
                     text: '操作',
-                    operate: ['remove', 'edit']
+                    operate: ['remove', 'editPop', 'detail']
                 }
             ]
+
+            this.params = this.options.params
 
 			this.required = false
             this.def = this.options.params

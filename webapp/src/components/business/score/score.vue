@@ -127,7 +127,7 @@
                     text: '考试',
                     component: 'drop',
                     entries: this.ENUM.exam,
-                    default: '0',
+                    default: '',
                     readonly: true
                 }
             ]

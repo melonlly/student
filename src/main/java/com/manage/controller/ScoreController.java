@@ -6,6 +6,7 @@ import com.manage.repository.ScoreRepository;
 import com.manage.service.ScoreService;
 import com.manage.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
@@ -60,9 +61,21 @@ public class ScoreController {
 	@Modifying
 	@RequestMapping("/add")
 	@ResponseBody
-	public Result saveScore(Score score) {
+	public Result saveScore(@RequestBody Map<String, Object> req) {
 		Result result = new Result();
 		try {
+			Score score = new Score();
+			score.setName(req.get("name").toString());
+			score.setExam(Integer.parseInt(req.get("exam").toString()));
+			score.setWeek1(req.get("week1").toString());
+			score.setWeek2(req.get("week2").toString());
+			score.setWeek2(req.get("week2").toString());
+			score.setEnglish(req.get("english").toString());
+			score.setSocial(req.get("social").toString());
+			score.setScience(req.get("science").toString());
+			score.setChinese(req.get("chinese").toString());
+			score.setMath(req.get("math").toString());
+			score.setPhysical(req.get("physical").toString());
 			scoreRepository.save(score);
 			result.setCode(Constants.SUCCESS);
 		} catch (Exception e) {
@@ -75,17 +88,36 @@ public class ScoreController {
 	@Modifying
 	@RequestMapping("/update")
 	@ResponseBody
-	public Result updateScore(Score score) {
+	public Result updateScore(@RequestBody Map<String, Object> req) {
 		Result result = new Result();
-		Score scoreEntity = scoreRepository.findOne((long)score.getId());
+		Integer id = Integer.parseInt(req.get("id").toString());
+		Score m_score = new Score();
+		m_score.setId(id);
+		Score scoreEntity = scoreRepository.findOne(Example.of(m_score));
 		if (scoreEntity != null) {
 			try {
+				Score score = new Score();
+				score.setId(id);
+				score.setName(req.get("name").toString());
+				score.setExam(Integer.parseInt(req.get("exam").toString()));
+				score.setWeek1(req.get("week1").toString());
+				score.setWeek2(req.get("week2").toString());
+				score.setWeek2(req.get("week2").toString());
+				score.setEnglish(req.get("english").toString());
+				score.setSocial(req.get("social").toString());
+				score.setScience(req.get("science").toString());
+				score.setChinese(req.get("chinese").toString());
+				score.setMath(req.get("math").toString());
+				score.setPhysical(req.get("physical").toString());
 				scoreRepository.save(score);
 				result.setCode(Constants.SUCCESS);
 			} catch (Exception e) {
 				result.setCode(Constants.FAIL);
 				result.setError(e.getMessage());
 			}
+		}else {
+			result.setCode(Constants.FAIL);
+			result.setError("该记录不存在！");
 		}
 		return result;
 	}
@@ -93,10 +125,12 @@ public class ScoreController {
 	@Modifying
 	@RequestMapping("/remove")
 	@ResponseBody
-	public Result removeScore(Integer id) {
+	public Result removeScore(@RequestBody Map<String, Object> req) {
 		Result result = new Result();
+		Score score = new Score();
+		score.setId(Integer.parseInt(req.get("id").toString()));
 		try {
-			scoreRepository.delete((long)id);
+			scoreRepository.delete(score);
 			result.setCode(Constants.SUCCESS);
 		} catch (Exception e) {
 			result.setCode(Constants.FAIL);

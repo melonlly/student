@@ -9,17 +9,11 @@
     animation: fadein .5s
     background: rgba(0, 0, 0, 0.5)
     .content
-        position: absolute
-        left: 20%
-        top: 20%
         width: 60%
         height: 60%
         padding: 20px 0
         background-color: $sub-color
     .confirm
-        position: absolute
-        left: 35%
-        top: 35%
         width: 25%
         height: 30%
         padding: 30px
@@ -48,13 +42,28 @@
                 color: $sub-color
                 background-color: $color
     .alter
-        position: absolute
-        left: 45%
-        top: 45%
-        width: 10%
-        height: 10%
-        padding: 10px
         background-color: $sub-color
+        .title
+            position: relative
+            height: 15%
+            background-color: $color
+            color: $sub-color
+            .text
+                position: absolute
+                top: 50%
+                transform: translateY(-50%)
+                width: 100%
+                font-size: 30px
+                text-align: center
+            .date
+                position: absolute
+                bottom: 0
+                right: 0
+                padding: 5px
+                width: auto
+                height: 16px
+                line-height: 16px
+                font-size: 16px
         .text
-            width: 100%
-            height: 100%
+            padding: 20px
+            font-size: 18px

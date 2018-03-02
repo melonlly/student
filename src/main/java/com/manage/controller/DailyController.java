@@ -6,6 +6,7 @@ import com.manage.repository.DailyRepository;
 import com.manage.service.DailyService;
 import com.manage.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
@@ -99,17 +100,32 @@ public class DailyController {
 	@Modifying
 	@RequestMapping("/update")
 	@ResponseBody
-	public Result updateDaily(Daily daily) {
+	public Result updateDaily(@RequestBody Map<String, Object> req) {
 		Result result = new Result();
-		Daily dailyEntity = dailyRepository.findOne((long)daily.getId());
+		Integer id = Integer.parseInt(req.get("id").toString());
+		Daily m_daily = new Daily();
+		m_daily.setId(id);
+		Daily dailyEntity = dailyRepository.findOne(Example.of(m_daily));
 		if (dailyEntity != null) {
 			try {
+				Daily daily = new Daily();
+				daily.setId(id);
+				daily.setName(req.get("name").toString());
+				daily.setLesson(Integer.parseInt(req.get("lesson").toString()));
+				daily.setPhone(Integer.parseInt(req.get("phone").toString()));
+				daily.setHomework(Integer.parseInt(req.get("homework").toString()));
+				daily.setDaily(Integer.parseInt(req.get("daily").toString()));
+				daily.setClean(Integer.parseInt(req.get("clean").toString()));
+				daily.setDate(dailyEntity.getDate());
 				dailyRepository.save(daily);
 				result.setCode(Constants.SUCCESS);
 			} catch (Exception e) {
 				result.setCode(Constants.FAIL);
 				result.setError(e.getMessage());
 			}
+		}else {
+			result.setCode(Constants.FAIL);
+			result.setError("该记录不存在！");
 		}
 		return result;
 	}
@@ -117,10 +133,12 @@ public class DailyController {
 	@Modifying
 	@RequestMapping("/remove")
 	@ResponseBody
-	public Result removeDaily(Integer id) {
+	public Result removeDaily(@RequestBody Map<String, Object> req) {
 		Result result = new Result();
+		Daily daily = new Daily();
+		daily.setId(Integer.parseInt(req.get("id").toString()));
 		try {
-			dailyRepository.delete((long)id);
+			dailyRepository.delete(daily);
 			result.setCode(Constants.SUCCESS);
 		} catch (Exception e) {
 			result.setCode(Constants.FAIL);

@@ -3,7 +3,7 @@
 	<div class="VForm">
 		<div class="feilds">
 			<template v-for="feild in _feilds">
-				<div class="feild-cpt center" v-if="feild.component">
+				<div :class="feild.br ? 'feild-cpt' : 'feild-cpt center'" v-if="feild.component">
 					<span class="text">{{feild.text}}:</span>
 					<component class="cpt" :is="feild.component"
 							   :feild="feild.name"
@@ -19,19 +19,19 @@
 							   :limit="limit"
 					></component>
 				</div>
-				<div class="feild-input center" v-else-if="!feild.tag">
+				<div :class="feild.br ? 'feild-input' : 'feild-input center'" v-else-if="!feild.tag">
 					<span class="text">{{feild.text}}:</span>
 					<input class="input" type="text" :readonly="feild.readonly" :value="feild.value" @input="setValue(feild, $event)">
 				</div>
-				<div class="feild-text center" v-else>
+				<div :class="feild.br ? 'feild-text' : 'feild-text center'" v-else>
 					<span class="text">{{feild.text}}:</span>
-					<textarea @input="setValue(feild, $event)"></textarea>
+					<textarea @input="setValue(feild, $event)" :value="feild.value"></textarea>
 				</div>
 			</template>
 		</div>
 		<div class="operates">
-			<div class="operate" v-for="operate in _operates">
-				<a @click="doIt(operate)" :class="operate.type">{{operate.name}}</a>
+			<div class="operate" @click="doIt(operate)" v-for="operate in _operates">
+				<a :class="operate.type">{{operate.name}}</a>
 			</div>
 		</div>
 	</div>

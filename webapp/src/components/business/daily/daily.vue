@@ -15,7 +15,11 @@
     export default {
         name: 'daily',
         data () {
-            return {}
+            return {
+                params: {},
+				curName: '', // 当前编辑用户名称
+                curId: '' // 当前编辑用户id
+			}
         },
         methods: {
             before () {},
@@ -31,6 +35,9 @@
             },
             // list查询
             search (params) {
+                params.page = 1
+                params.size = this.$refs.list.size
+                this.params = params
                 this.$refs.list.params = params
                 this.$refs.list.load()
             },
@@ -46,35 +53,30 @@
                             text: '上 课',
                             component: 'drop',
                             entries: this.ENUM.lesson,
-                            default: '0',
                             readonly: true
                         },{
                             name: 'phone',
                             text: '手 机',
                             component: 'drop',
                             entries: this.ENUM.phone,
-                            default: '0',
                             readonly: true
                         },{
                             name: 'homework',
                             text: '作 业',
                             component: 'drop',
                             entries: this.ENUM.homework,
-                            default: '0',
                             readonly: true
                         },{
                             name: 'daily',
                             text: '考 勤',
                             component: 'drop',
                             entries: this.ENUM.daily,
-                            default: '0',
                             readonly: true
                         },{
                             name: 'clean',
                             text: '卫 生',
                             component: 'drop',
                             entries: this.ENUM.clean,
-                            default: '0',
                             readonly: true
                         }
                     ],
@@ -90,12 +92,110 @@
             // 添加
             add (params) {
                 bus.$emit('pop', false)
+                const _this = this
+                this.$http.post('/daily/add', params).then(res => {
+                    alert('添加成功！');
+                }).always((res, error) => {
+                    if(error){
+                        alert('添加失败！');
+                        console.log(error)
+                    }else{
+                        _this.$refs.list.params = _this.params
+                        _this.$refs.list.load()
+                    }
+                })
+            },
+            // 修改弹窗
+            editPop (params) {
+                this.curId = params.id
+				this.curName = params.name
+                bus.$emit('pop', true, {
+                    type: 'VForm',
+                    required: true,
+                    feilds: [
+                        {
+                            name: 'lesson',
+                            text: '上 课',
+                            component: 'drop',
+                            entries: this.ENUM.lesson,
+                            default: params.lesson,
+                            readonly: true
+                        },{
+                            name: 'phone',
+                            text: '手 机',
+                            component: 'drop',
+                            entries: this.ENUM.phone,
+                            default: params.phone,
+                            readonly: true
+                        },{
+                            name: 'homework',
+                            text: '作 业',
+                            component: 'drop',
+                            entries: this.ENUM.homework,
+                            default: params.homework,
+                            readonly: true
+                        },{
+                            name: 'daily',
+                            text: '考 勤',
+                            component: 'drop',
+                            entries: this.ENUM.daily,
+                            default: params.daily,
+                            readonly: true
+                        },{
+                            name: 'clean',
+                            text: '卫 生',
+                            component: 'drop',
+                            entries: this.ENUM.clean,
+                            default: params.clean,
+                            readonly: true
+                        }
+                    ],
+                    operates: [
+                        {
+                            name: '修改',
+                            type: 'update',
+                            func: 'edit'
+                        }
+                    ]
+                }, 'component')
             },
             edit (params) {
-
+                bus.$emit('pop', false)
+                params.id = this.curId
+				params.name = this.curName
+                const _this = this
+                this.$http.post('/daily/update', params).then(res => {
+                    alert('修改成功！');
+                }).always((res, error) => {
+                    if(error){
+                        alert('修改失败！');
+                        console.log(error)
+                    }else{
+                        _this.$refs.list.params = _this.params
+                        _this.$refs.list.load()
+                    }
+                })
             },
             remove (params) {
-
+                const _this = this
+                bus.$emit('pop', true, {
+                    text: '是否确认删除？',
+                    okFunc () {
+                        _this.$http.post('/daily/remove', {
+                            id: params.id
+                        }).then(res => {
+                            alert('删除成功！');
+                        }).always((res, error) => {
+                            if(error){
+                                alert('删除失败！');
+                                console.log(error)
+                            }else{
+                                _this.$refs.list.params = _this.params
+                                _this.$refs.list.load()
+                            }
+                        })
+                    }
+                }, 'confirm')
             }
         },
         created () {
@@ -143,9 +243,11 @@
                 },{
                     name: '$operate',
                     text: '操作',
-                    operate: ['remove', 'edit']
+                    operate: ['remove', 'editPop']
                 }
             ]
+
+            this.params = this.options.params
 
             this.required = false
             this.def = this.options.params
@@ -160,35 +262,30 @@
                     text: '上 课',
                     component: 'drop',
                     entries: this.ENUM.lesson,
-                    default: '0',
                     readonly: true
                 },{
                     name: 'phone',
                     text: '手 机',
                     component: 'drop',
                     entries: this.ENUM.phone,
-                    default: '0',
                     readonly: true
                 },{
                     name: 'homework',
                     text: '作 业',
                     component: 'drop',
                     entries: this.ENUM.homework,
-                    default: '0',
                     readonly: true
                 },{
                     name: 'daily',
                     text: '考 勤',
                     component: 'drop',
                     entries: this.ENUM.daily,
-                    default: '0',
                     readonly: true
                 },{
                     name: 'clean',
                     text: '卫 生',
                     component: 'drop',
                     entries: this.ENUM.clean,
-                    default: '0',
                     readonly: true
                 },{
                     name: 'start',

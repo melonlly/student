@@ -1,6 +1,6 @@
 <template>
 
-	<div class="pop" @click="close($event)">
+	<div class="pop center" @click="close($event)">
 		<template v-if="content && popType">
 			<div class="content" v-if="popType === 'component'">
 				<!--<div class="title"></div>-->
@@ -20,7 +20,11 @@
 					<span class="no" @click="no">取消</span>
 				</div>
 			</div>
-			<div class="alter" v-else-if="popType === 'alter'">
+			<div class="alter" :style="{ width: content.width, height: content.height }" v-else-if="popType === 'alter'">
+				<div class="title">
+					<span class="text">{{content.title}}</span>
+					<span class="date" v-if="content.date">{{content.date}}</span>
+				</div>
 				<div class="text">
 					{{content.text}}
 				</div>
@@ -48,7 +52,7 @@
                 this.$parent.edit(params)
             },
 			close (e) {
-			    if(e.target.getAttribute('class') === 'pop'){
+			    if(e.target.getAttribute('class') === 'pop center'){
                     bus.$emit('pop', false)
                 }
 			},

@@ -10,6 +10,7 @@
 						{{th.enum ? enumToValue(th.enum, tr[th.name]) : tr[th.name]}}
 					</td>
 					<td v-if="hasOperate()">
+						<a class="icon_detail" v-if="operate('detail')" @click="doIt('detail', tr)"></a>
 						<a class="icon_edit" v-if="operate('editPop')" @click="doIt('editPop', tr)"></a>
 						<a class="icon_remove" v-if="operate('remove')" @click="doIt('remove', tr)"></a>
 					</td>
