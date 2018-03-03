@@ -37,7 +37,7 @@ CREATE TABLE `student`.`t_news` (
   `update_time` VARCHAR(45) NULL COMMENT '更新时间（yyyy-MM-dd hh:mm:ss）',
   `publisher` VARCHAR(45) NULL COMMENT '发布者',
   `updater` VARCHAR(45) NULL COMMENT '更新者',
-  `content` VARCHAR(1000) NULL COMMENT '内容',
+  `content` VARCHAR(10000) NULL COMMENT '内容',
   PRIMARY KEY (`id`))
   COMMENT = '消息表';
 ALTER TABLE `student`.`t_news` 
@@ -84,3 +84,17 @@ INSERT INTO `student`.`t_catalog` (`id`, `parentid`, `name`, `url`) VALUES ('4',
 INSERT INTO `student`.`t_catalog` (`id`, `parentid`, `name`, `url`) VALUES ('5', '2', '考勤管理', 'daily');
 INSERT INTO `student`.`t_catalog` (`id`, `parentid`, `name`, `url`) VALUES ('6', '2', '成绩管理', 'score');
 INSERT INTO `student`.`t_catalog` (`id`, `parentid`, `name`, `url`) VALUES ('7', '3', '用户管理', 'users');
+
+
+CREATE TABLE `student`.`t_lesson` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `semester` VARCHAR(45) NULL COMMENT '学期',
+  `period` VARCHAR(45) NULL COMMENT '时间段',
+  `time` VARCHAR(45) NULL COMMENT '时间',
+  `day1` VARCHAR(45) NULL COMMENT '星期一',
+  `day2` VARCHAR(45) NULL COMMENT '星期二',
+  `day3` VARCHAR(45) NULL COMMENT '星期三',
+  `day4` VARCHAR(45) NULL COMMENT '星期四',
+  `day5` VARCHAR(45) NULL COMMENT '星期五',
+  PRIMARY KEY (`id`))
+COMMENT = '课程表';

@@ -196,7 +196,18 @@
                         })
                     }
                 }, 'confirm')
-            }
+            },
+            sum (params) {
+                let sum = 0
+                this.$refs.list.data.forEach(item => {
+                    sum += item.clean
+					sum += item.daily
+					sum += item.homework
+					sum += item.lesson
+					sum += item.phone
+				})
+				alert("总分数：" + sum)
+			}
         },
         created () {
             let user = this.getItem('user')
@@ -312,7 +323,12 @@
 				    name: '添加',
 					type: 'add',
                     func: 'addPop'
-				}
+				},
+                {
+                    name: '统计',
+                    type: 'sum',
+                    func: 'sum'
+                }
             ]
         },
         components: {
@@ -322,5 +338,5 @@
 </script>
 
 <style lang="stylus">
-	@import "daily.styl";
+
 </style>

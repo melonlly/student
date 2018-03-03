@@ -13,7 +13,7 @@
     import bus from 'components/bus/bus'
 
     export default {
-        name: 'users',
+        name: 'score',
         data () {
             return {}
         },
@@ -156,5 +156,5 @@
 </script>
 
 <style lang="stylus">
-	@import "score.styl";
+
 </style>

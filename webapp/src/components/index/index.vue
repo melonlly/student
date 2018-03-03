@@ -3,7 +3,8 @@
 	<div id="index" :style="{ height: $height() + 'px' }">
 
 		<div class="header">
-			<logo></logo>
+			<i class="list" @click="showList"></i>
+			<!--<logo></logo>-->
 			<user></user>
 		</div>
 
@@ -35,6 +36,7 @@
     import daily from 'components/business/daily/daily'
     import score from 'components/business/score/score'
     import users from 'components/business/users/users'
+	import lesson from 'components/business/schedule/lesson'
     import user from 'components/business/user/user'
     import bus from 'components/bus/bus'
     import pop from 'components/pop/pop'
@@ -56,10 +58,14 @@
 				},
 				pop: false,
                 content: null,
-                popType: ''
+                popType: '',
+				show: true
 			}
 		},
 		methods: {
+            showList () {
+                this.show = !this.show
+			}
 		    /*
 		     * 滚动事件
 		     * 	scroll_top_before: 0, // 滚动条滚动前scrollTop
@@ -120,7 +126,7 @@
 //		    window.addEventListener('scroll', this.scroll)
 		},
 		components: {
-            dock, logo, user, nvg, news, daily, score, users, pop
+            dock, logo, user, nvg, news, daily, score, users, lesson, pop
 		}
 	}
 </script>

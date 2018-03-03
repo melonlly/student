@@ -152,7 +152,7 @@
                     title: params.name,
 					date: params.create_time,
                     text: params.content,
-					width: '800px',
+					width: '1000px',
 					height: '500px'
                 }, 'alter')
 			}
@@ -229,5 +229,5 @@
 </script>
 
 <style lang="stylus">
-	@import "news.styl";
+
 </style>

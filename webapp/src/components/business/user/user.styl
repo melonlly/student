@@ -9,9 +9,7 @@ $header-h = 64px /* header高度 */
         .text
             height: $header-h
         .exit
-            display: inline-block
-            margin: 0 10px
-            width: 30px
-            height: $header-h
-            background: url(exit.png) no-repeat center;
-            cursor: pointer
+            $icon(50px, 'exit.png')
+            border-radius: 50%
+            &:hover
+                background-color: rgba(255, 255, 255, .1)
