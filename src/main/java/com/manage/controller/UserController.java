@@ -34,12 +34,18 @@ public class UserController {
 	public Result findUsers(@RequestBody Map<String, Object> req) {
 		int page = Integer.parseInt(req.get("page").toString());
 		int size = Integer.parseInt(req.get("size").toString());
+		String name = req.get("name").toString();
+		String relation = req.get("relation").toString();
 		String is_admin = req.get("is_admin").toString();
 		String status = req.get("status").toString();
 		String role = req.get("role").toString();
 		User user = new User();
-		user.setName(req.get("name").toString());
-		user.setRelation(req.get("relation").toString());
+		if(name != null && name != ""){
+			user.setName(name);
+		}
+		if(relation != null && relation != ""){
+			user.setRelation(relation);
+		}
 		if(is_admin != null && is_admin != ""){
 			user.setIs_admin(Integer.parseInt(is_admin));
 		}
@@ -146,6 +152,7 @@ public class UserController {
 				User user = new User();
 				user.setId(id);
 				user.setName(name);
+				user.setCreate_time(userEntity.getCreate_time());
 				user.setPassword(password);
 				user.setRelation(relation);
 				user.setPhone(phone);

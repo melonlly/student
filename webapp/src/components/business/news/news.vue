@@ -158,7 +158,8 @@
 			}
         },
         created () {
-            this.username = this.getItem('user').name
+            let user = this.getItem('user')
+            this.username = user.name
 
             this.options = {
                 url: '/news/list',
@@ -185,6 +186,7 @@
                     operate: ['remove', 'editPop', 'detail']
                 }
             ]
+            user.role == 2 ? this.columns[this.columns.length - 1].operate.splice(0, 2) : ''
 
             this.params = this.options.params
 
@@ -221,6 +223,7 @@
 					func: 'addPop'
                 }
             ]
+            user.role == 2 ? this.operates.pop() : ''
         },
         components: {
             list, VForm

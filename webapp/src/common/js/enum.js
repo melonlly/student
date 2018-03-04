@@ -6,7 +6,7 @@ export default {
         Vue.prototype.ENUM = {
             'isOrNot': [{text: '全部', value: ''}, {text: '否', value: '0'}, {text: '是', value: '1'}],
             'role': [{text: '全部', value: ''}, {text: '老师', value: '1'}, {text: '家长', value: '2'}],
-            'exam': [{text: '全部', value: ''}, {text: '英语周测成绩', value: '1'}, {text: '期中考试成绩', value: '2'}, {text: '期末考试成绩', value: '3'}],
+            'exam': [{text: '英语周测成绩', value: '1'}, {text: '期中考试成绩', value: '2'}, {text: '期末考试成绩', value: '3'}],
             'lesson': [{text: '全部', value: ''}, {text: '好(4分)', value: '4'}, {text: '良(3分)', value: '3'}, {text: '差(1分)', value: '1'}],
             'phone': [{text: '全部', value: ''}, {text: '上交(4分)', value: '4'}, {text: '未上交(0分)', value: '0'}, {text: '未带(4分)', value: '4'}],
             'homework': [{text: '全部', value: ''}, {text: '上交(4分)', value: '4'}, {text: '迟交(3分)', value: '3'}, {text: '未交(0分)', value: '0'}],

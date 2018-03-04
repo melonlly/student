@@ -45,10 +45,10 @@ public class DailyServiceImpl implements DailyService {
 						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("daily").as(Integer.class), daily.getDaily())));
 					}
 					if(start != null && start != ""){
-						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.greaterThanOrEqualTo(root.get("create_time").as(String.class), start)));
+						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.greaterThanOrEqualTo(root.get("date").as(String.class), start)));
 					}
 					if(end != null && end != ""){
-						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("create_time").as(String.class), end)));
+						criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("date").as(String.class), end)));
 					}
 				}
 				return criteriaQuery.getRestriction();

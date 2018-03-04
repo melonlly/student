@@ -49,6 +49,7 @@
                 this.$parent.add(params)
             },
             edit (params) {
+			    console.log(params)
                 this.$parent.edit(params)
             },
 			close (e) {

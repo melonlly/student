@@ -15,8 +15,16 @@ export default {
 
         Vue.prototype.decrypt = Ciphertext => {
             if(Ciphertext){
-                var decryptedData = CryptoJS.AES.decrypt(Ciphertext, key);
+                let decryptedData = CryptoJS.AES.decrypt(Ciphertext, key);
                 return decryptedData.toString(CryptoJS.enc.Utf8);
+            }else{
+                return
+            }
+        }
+
+        Vue.prototype.getMD5 = source => {
+            if(source){
+                return CryptoJS.MD5(source).toString()
             }else{
                 return
             }

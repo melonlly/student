@@ -94,7 +94,19 @@
 			// 超管
 			if(user){
                 this.$http.post('/catalog/all', {}).then(res => {
-                    this.$menu(res.getData('list'))
+                    let list = res.getData('list')
+					if(user.role == 2){
+						let i = ''
+                        list.forEach((catalog, index) => {
+                            if(catalog.name === '权限管理'){
+                                i = index
+							}
+						})
+						if(i){
+						    list.splice(i, 1)
+						}
+					}
+                    this.$menu(list)
                     this.mains = this.menu
                 }).catch(error => {
                     console.log(error)

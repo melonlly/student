@@ -126,6 +126,8 @@
 			},
 			load () {
                 this.$emit('before')
+				this.url = this.options.url
+				this.params = this.options.params
                 this.$http.post(this.url, this.params).then(res => {
                     this.data = res.getData('list')
                     if(this.data){

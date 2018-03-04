@@ -211,10 +211,11 @@
         },
         created () {
             let user = this.getItem('user')
+
             this.options = {
                 url: '/daily/list',
                 params: {
-                    name: user.role === '2' ? user.relation : '',
+                    name: user.role == 2 ? user.relation : '',
                     page: 1,
                     size: 10
                 },
@@ -257,6 +258,7 @@
                     operate: ['remove', 'editPop']
                 }
             ]
+            user.role == 2 ? this.columns.pop() : ''
 
             this.params = this.options.params
 
@@ -266,8 +268,8 @@
                 {
                     name: 'name',
                     text: '名 称',
-                    default: user.role === '2' ? user.relation : '',
-                    readonly: user.role === '2'
+                    default: user.role == 2 ? user.relation : '',
+                    readonly: user.role == 2
                 },{
                     name: 'lesson',
                     text: '上 课',
@@ -330,6 +332,7 @@
                     func: 'sum'
                 }
             ]
+            user.role == 2 ? this.operates.splice(2, 1) : ''
         },
         components: {
             list, VForm

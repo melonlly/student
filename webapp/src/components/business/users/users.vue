@@ -85,7 +85,7 @@
             // 添加
             add (params) {
                 bus.$emit('pop', false)
-				params.password = this.encrypt(params.password)
+				params.password = this.getMD5(params.password)
 				const _this = this
                 this.$http.post('/user/add', params).then(res => {
                     alert('添加成功！');
@@ -102,21 +102,20 @@
 			// 修改弹窗
             editPop (params) {
                 this.curId = params.id
-                console.log(params)
                 bus.$emit('pop', true, {
                     type: 'VForm',
                     required: true,
                     feilds: [
-                        {name: 'name', text: '名 称', default: params.name, require: true},
+                        {name: 'name', text: '名 称', value: params.name, require: true},
                         {name: 'password', text: '密 码', require: true},
-                        {name: 'relation', text: '关系人', default: params.relation},
-                        {name: 'phone', text: '手机号', default: params.phone},
+                        {name: 'relation', text: '关系人', value: params.relation},
+                        {name: 'phone', text: '手机号', value: params.phone},
                         {
                             name: 'is_admin',
                             text: '管理员',
                             component: 'drop',
                             entries: this.ENUM.isOrNot,
-                            default: params.is_admin,
+                            default: params.is_admin + '',
                             readonly: true
                         },
                         {
@@ -124,7 +123,7 @@
                             text: '是否有效',
                             component: 'drop',
                             entries: this.ENUM.isOrNot,
-                            default: params.status,
+                            default: params.status + '',
                             readonly: true
                         },
                         {
@@ -132,7 +131,7 @@
                             text: '角色',
                             component: 'drop',
                             entries: this.ENUM.role,
-                            default: params.role,
+                            default: params.role + '',
                             readonly: true
                         }
                     ],
@@ -147,7 +146,7 @@
             },
 			edit (params) {
                 bus.$emit('pop', false)
-                params.password = this.encrypt(params.password)
+                params.password = this.getMD5(params.password)
 				params.id = this.curId
                 const _this = this
                 this.$http.post('/user/update', params).then(res => {
@@ -186,11 +185,10 @@
         },
         created () {
             let user = this.getItem('user')
-
             this.options = {
                 url: '/user/list',
                 params: {
-                    role: user.role === '2' ? '1': '',
+                    name: user.role == 2 ? user.name: '',
                     page: 1,
                     size: 10
                 },
@@ -220,14 +218,19 @@
             this.required = false
             this.def = this.options.params
             this.feilds = [
-                {name: 'name', text: '名称'},
+                {
+                    name: 'name',
+					text: '名称',
+                    value: user.role == 2 ? user.name : '',
+                    readonly: user.role == 2
+				},
                 {name: 'relation', text: '关系人'},
 				{
                     name: 'is_admin',
                     text: '管理员',
                     component: 'drop',
                     entries: this.ENUM.isOrNot,
-					default: '',
+                    default: '',
                     readonly: true
                 },
                 {
@@ -243,8 +246,8 @@
                     text: '角色',
                     component: 'drop',
                     entries: this.ENUM.role,
-					default: user.role === '2' ? '1': '',
-					noDrop: user.role === '2',
+					default: user.role == 2 ? 1: '',
+					noDrop: user.role == 2,
                     readonly: true
                 }
             ]

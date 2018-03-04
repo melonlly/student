@@ -2,9 +2,9 @@
 
 	<div id="login" :style="{ height: $height() + 'px' }">
 		<div class="login-box">
-			<!--<div class="title">-->
-				<!--学生管理系统-->
-			<!--</div>-->
+			<div class="title">
+				学生管理系统
+			</div>
 			<div class="user">
 				<div class="account">
 					<i></i>
@@ -39,8 +39,8 @@
 				if(this.account && this.password){
 					this.$http.post('/login', {
 					    account: this.account,
-						password: this.password
-//						password: this.encrypt(this.password)
+//						password: this.password
+						password: this.getMD5(this.password)
 					}).then(res => {
 					    this.setItem('user', res.getData())
 						this.$router.push({
